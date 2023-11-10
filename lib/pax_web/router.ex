@@ -23,27 +23,28 @@ defmodule PaxWeb.Router do
   scope "/api", PaxWeb do
     pipe_through :api
 
-    get "/account/:account_id", AccountController, :index
-    post "/account", AccountController, :create
-    post "/account/:account_id/actions/close", AccountController, :close
+    get "/account/:account_id", AccountsController, :index
+    post "/account", AccountsController, :create
+    post "/account/:account_id/actions/close", AccountsController, :close
 
-    get "/poll/:poll_id", PollController, :index
-    post "/poll", PollController, :create
-    patch "/poll/:poll_id", PollController, :update
-    post "/poll/:poll_id/actions/close", PollController, :close
-    post "/poll/:poll_id/actions/schedule", PollController, :schedule
-    post "/poll/:poll_id/actions/open", PollController, :open
+    get "/group/:group_id", GroupsController, :index
+    post "/group", GroupsController, :create
+    patch "/group/:group_id", GroupsController, :update
+    get "/group/:group_id/invitations", GroupsController, :invitations
+    get "/group/:group_id/polls", GroupsController, :polls
+    post "/group/:group_id/actions/close", GroupsController, :close
+    post "/group/:group_id/actions/invite", GroupsController, :invite
 
-    get "/group/:group_id", GroupController, :index
-    post "/group", GroupController, :create
-    patch "/group/:group_id", GroupController, :update
-    post "/group/:group_id/actions/close", GroupController, :close
-    post "/group/:group_id/actions/invite", GroupController, :invite
-    get "/group/:group_id/invitations", GroupController, :invitations
-    get "/group/:group_id/polls", GroupController, :polls
+    get "/invite/:invite_id", InvitesController, :index
+    post "/invite/:invite_id/actions/accept", InvitesController, :accept
+    post "/invite/:invite_id/actions/decline", InvitesController, :decline
 
-    post "/invite/:invite_id/actions/accept", InviteController, :accept
-    post "/invite/:invite_id/actions/decline", InviteController, :decline
+    get "/poll/:poll_id", PollsController, :index
+    post "/poll", PollsController, :create
+    patch "/poll/:poll_id", PollsController, :update
+    post "/poll/:poll_id/actions/close", PollsController, :close
+    post "/poll/:poll_id/actions/schedule", PollsController, :schedule
+    post "/poll/:poll_id/actions/open", PollsController, :open
   end
 
   if Application.compile_env(:pax, :dev_routes) do
